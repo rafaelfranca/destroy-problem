@@ -1,0 +1,16 @@
+defaults: &defaults
+  adapter: postgresql
+  encoding: utf8
+  host: localhost
+  username: um
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *defaults
+  database: um_dev
+
+test:
+  <<: *defaults
+  database: um_tst
+

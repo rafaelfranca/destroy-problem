@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+# start with: bin/test xml
+cmd = "spring rspec"
+if ARGV[0]
+  regex = %r{#{ARGV[0]}}
+  files = Dir['spec/**/**.rb'].grep(regex)
+  cmd = "#{cmd} #{files.join(' ')}"
+end
+puts cmd
+exec(cmd)
+
+

@@ -1,0 +1,1148 @@
+
+
+Started OPTIONS "/latest/roles/8.json" for 127.0.0.1 at 2014-01-30 19:36:41 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PagesController#options as JSON
+  Parameters: {"path"=>"latest/roles/8"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started DELETE "/latest/roles/8.json" for 127.0.0.1 at 2014-01-30 19:36:42 +0100
+Processing by A::V20140101::RolesController#destroy as JSON
+  Parameters: {"id"=>"8"}
+  [1m[35mSession Load (1.0ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (2.4ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.6ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mMpx::Role Load (0.5ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' AND "roles"."id" = $1 LIMIT 1[0m  [["id", 8]]
+  [1m[35mHABTM_Powers Load (0.9ms)[0m  SELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (8)
+  [1m[36mPower Load (0.6ms)[0m  [1mSELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_groups')[0m
+  [1m[35mMpx::Role Load (0.4ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."id" = $1 LIMIT 1  [["id", 8]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."role_id" = $1  [["role_id", 8]]
+  [1m[36mSQL (0.5ms)[0m  [1mDELETE FROM "powers_roles" WHERE "powers_roles"."role_id" = $1[0m  [["role_id", 8]]
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "roles" WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."id" = $1  [["id", 8]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Completed 204 No Content in 100ms (ActiveRecord: 21.9ms)
+
+
+Started GET "/session.json" for 127.0.0.1 at 2014-01-30 20:05:24 +0100
+Processing by A::V20140101::SessionsController#show as JSON
+  [1m[35mSession Load (0.6ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.5ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mRole Load (0.4ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = $1  ORDER BY "roles"."id" ASC LIMIT 1[0m  [["id", 4]]
+  [1m[35mPower Load (1.8ms)[0m  SELECT "powers".* FROM "powers" INNER JOIN "powers_roles" ON "powers"."id" = "powers_roles"."power_id" WHERE "powers_roles"."role_id" = $1  [["role_id", 4]]
+Completed 200 OK in 44ms (Views: 0.6ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/latest/roles.json?order=asc&page=1&per=25&sort=id" for 127.0.0.1 at 2014-01-30 20:05:24 +0100
+Processing by A::V20140101::RolesController#index as JSON
+  Parameters: {"order"=>"asc", "page"=>"1", "per"=>"25", "sort"=>"id"}
+  [1m[36mSession Load (0.6ms)[0m  [1mSELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1[0m
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1  [["id", 7211]]
+  [1m[36mAffiliation Load (0.4ms)[0m  [1mSELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1[0m  [["id", "mpx"]]
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx'
+  [1m[36mMpx::Role Load (0.6ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' LIMIT 25 OFFSET 0[0m
+  [1m[35mHABTM_Powers Load (6.5ms)[0m  SELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (4)
+  [1m[36mPower Load (1.8ms)[0m  [1mSELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_groups', 'af_create_groups', 'af_show_group', 'af_update_group', 'af_destroy_group', 'af_restore_group', 'af_index_group_users', 'af_add_group_users', 'af_remove_group_users', 'af_add_group_user', 'af_remove_group_user', 'af_index_organizations', 'af_create_organizations', 'af_show_organization', 'af_update_organization', 'af_destroy_organization', 'af_restore_organization', 'af_index_organization_addresses', 'af_create_organization_addresses', 'af_show_organization_address', 'af_update_organization_address', 'af_destroy_organization_address', 'af_index_organization_aliases', 'af_create_organization_aliases', 'af_show_organization_alias', 'af_update_organization_alias', 'af_destroy_organization_alias', 'af_index_organization_bank_accounts', 'af_create_organization_bank_accounts', 'af_show_organization_bank_account', 'af_update_organization_bank_account', 'af_destroy_organization_bank_account', 'af_index_organization_courier_services', 'af_create_organization_courier_services', 'af_show_organization_courier_service', 'af_update_organization_courier_service', 'af_destroy_organization_courier_service', 'af_index_organization_im_contacts', 'af_create_organization_im_contacts', 'af_show_organization_im_contact', 'af_update_organization_im_contact', 'af_destroy_organization_im_contact', 'af_index_organization_key_persons', 'af_create_organization_key_persons', 'af_show_organization_key_person', 'af_update_organization_key_person', 'af_destroy_organization_key_person', 'af_index_organization_phones', 'af_create_organization_phones', 'af_show_organization_phone', 'af_update_organization_phone', 'af_destroy_organization_phone', 'af_index_organization_social_media_profiles', 'af_create_organization_social_media_profiles', 'af_show_organization_social_media_profile', 'af_update_organization_social_media_profile', 'af_destroy_organization_social_media_profile', 'af_index_organization_users', 'af_create_organization_users', 'af_show_organization_user', 'af_update_organization_user', 'af_destroy_organization_user', 'af_restore_organization_user', 'af_block_organization_user', 'af_unblock_organization_user', 'af_index_organization_website_urls', 'af_create_organization_website_urls', 'af_show_organization_website_url', 'af_update_organization_website_url', 'af_destroy_organization_website_url', 'af_index_roles', 'af_create_roles', 'af_show_roles', 'af_update_role', 'af_destroy_role', 'af_index_role_powers', 'af_add_role_powers', 'af_remove_role_powers', 'af_update_role_powers', 'af_add_role_power', 'af_remove_role_power', 'af_index_role_users', 'af_add_role_users', 'af_add_role_user', 'af_index_users', 'af_create_users', 'af_show_user', 'af_update_user', 'af_destroy_user', 'af_block_user', 'af_unblock_user', 'af_restore_user', 'af_index_user_addresses', 'af_create_user_addresses', 'af_show_user_address', 'af_update_user_address', 'af_destroy_user_address', 'af_index_user_im_contacts', 'af_create_user_im_contacts', 'af_show_user_im_contact', 'af_update_user_im_contact', 'af_destroy_user_im_contact', 'af_index_user_phones', 'af_create_user_phones', 'af_show_user_phone', 'af_update_user_phone', 'af_destroy_user_phone', 'af_index_user_social_media_profiles', 'af_create_user_social_media_profiles', 'af_show_user_social_media_profile', 'af_update_user_social_media_profile', 'af_destroy_user_social_media_profile')[0m
+Completed 200 OK in 168ms (Views: 146.6ms | ActiveRecord: 11.0ms)
+
+
+Started GET "/session.json" for 127.0.0.1 at 2014-01-30 20:05:29 +0100
+Processing by A::V20140101::SessionsController#show as JSON
+  [1m[35mSession Load (0.6ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.5ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mRole Load (0.4ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = $1  ORDER BY "roles"."id" ASC LIMIT 1[0m  [["id", 4]]
+  [1m[35mPower Load (1.4ms)[0m  SELECT "powers".* FROM "powers" INNER JOIN "powers_roles" ON "powers"."id" = "powers_roles"."power_id" WHERE "powers_roles"."role_id" = $1  [["role_id", 4]]
+Completed 200 OK in 21ms (Views: 0.9ms | ActiveRecord: 3.5ms)
+
+
+Started GET "/latest/powers.json" for 127.0.0.1 at 2014-01-30 20:05:29 +0100
+Processing by A::V20140101::PowersController#index as JSON
+  [1m[36mPower Load (0.9ms)[0m  [1mSELECT "powers".* FROM "powers"[0m
+Completed 200 OK in 18ms (Views: 15.3ms | ActiveRecord: 0.9ms)
+
+
+Started OPTIONS "/latest/roles.json" for 127.0.0.1 at 2014-01-30 20:05:36 +0100
+Processing by PagesController#options as JSON
+  Parameters: {"path"=>"latest/roles"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started POST "/latest/roles.json" for 127.0.0.1 at 2014-01-30 20:05:36 +0100
+Processing by A::V20140101::RolesController#create as JSON
+  Parameters: {"name"=>"role", "power_ids"=>["af_index_roles"], "role"=>{"name"=>"role", "power_ids"=>["af_index_roles"]}}
+  [1m[35mSession Load (0.5ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.4ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+Unpermitted parameters: format, role
+  [1m[36mPower Load (0.4ms)[0m  [1mSELECT  "powers".* FROM "powers"  WHERE "powers"."id" = $1 LIMIT 1[0m  [["id", "af_index_roles"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mPower Exists (0.9ms)[0m  [1mSELECT  1 AS one FROM "powers"  WHERE ("powers"."action" = 'index' AND "powers"."id" != 'af_index_roles' AND "powers"."module" = 'af' AND "powers"."resource" = 'roles') LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mRole Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "roles"  WHERE ("roles"."name" = 'role' AND "roles"."affiliation_id" = 'mpx') LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "roles" ("affiliation_id", "created_at", "name", "type", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["affiliation_id", "mpx"], ["created_at", "2014-01-30 19:05:36.226028"], ["name", "role"], ["type", "Mpx::Role"], ["updated_at", "2014-01-30 19:05:36.226028"]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "powers_roles" ("power_id", "role_id") VALUES ($1, $2)[0m  [["power_id", "af_index_roles"], ["role_id", 9]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Completed 201 Created in 34ms (Views: 1.9ms | ActiveRecord: 5.2ms)
+
+
+Started GET "/latest/roles.json?order=asc&page=1&per=25&sort=id" for 127.0.0.1 at 2014-01-30 20:05:36 +0100
+Processing by A::V20140101::RolesController#index as JSON
+  Parameters: {"order"=>"asc", "page"=>"1", "per"=>"25", "sort"=>"id"}
+  [1m[36mSession Load (0.6ms)[0m  [1mSELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1[0m
+  [1m[35mUser Load (0.9ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1  [["id", 7211]]
+  [1m[36mAffiliation Load (0.5ms)[0m  [1mSELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1[0m  [["id", "mpx"]]
+  [1m[35m (1.3ms)[0m  SELECT COUNT(*) FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx'
+  [1m[36mMpx::Role Load (0.5ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' LIMIT 25 OFFSET 0[0m
+  [1m[35mHABTM_Powers Load (1.0ms)[0m  SELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (4, 9)
+  [1m[36mPower Load (1.8ms)[0m  [1mSELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_groups', 'af_create_groups', 'af_show_group', 'af_update_group', 'af_destroy_group', 'af_restore_group', 'af_index_group_users', 'af_add_group_users', 'af_remove_group_users', 'af_add_group_user', 'af_remove_group_user', 'af_index_organizations', 'af_create_organizations', 'af_show_organization', 'af_update_organization', 'af_destroy_organization', 'af_restore_organization', 'af_index_organization_addresses', 'af_create_organization_addresses', 'af_show_organization_address', 'af_update_organization_address', 'af_destroy_organization_address', 'af_index_organization_aliases', 'af_create_organization_aliases', 'af_show_organization_alias', 'af_update_organization_alias', 'af_destroy_organization_alias', 'af_index_organization_bank_accounts', 'af_create_organization_bank_accounts', 'af_show_organization_bank_account', 'af_update_organization_bank_account', 'af_destroy_organization_bank_account', 'af_index_organization_courier_services', 'af_create_organization_courier_services', 'af_show_organization_courier_service', 'af_update_organization_courier_service', 'af_destroy_organization_courier_service', 'af_index_organization_im_contacts', 'af_create_organization_im_contacts', 'af_show_organization_im_contact', 'af_update_organization_im_contact', 'af_destroy_organization_im_contact', 'af_index_organization_key_persons', 'af_create_organization_key_persons', 'af_show_organization_key_person', 'af_update_organization_key_person', 'af_destroy_organization_key_person', 'af_index_organization_phones', 'af_create_organization_phones', 'af_show_organization_phone', 'af_update_organization_phone', 'af_destroy_organization_phone', 'af_index_organization_social_media_profiles', 'af_create_organization_social_media_profiles', 'af_show_organization_social_media_profile', 'af_update_organization_social_media_profile', 'af_destroy_organization_social_media_profile', 'af_index_organization_users', 'af_create_organization_users', 'af_show_organization_user', 'af_update_organization_user', 'af_destroy_organization_user', 'af_restore_organization_user', 'af_block_organization_user', 'af_unblock_organization_user', 'af_index_organization_website_urls', 'af_create_organization_website_urls', 'af_show_organization_website_url', 'af_update_organization_website_url', 'af_destroy_organization_website_url', 'af_index_roles', 'af_create_roles', 'af_show_roles', 'af_update_role', 'af_destroy_role', 'af_index_role_powers', 'af_add_role_powers', 'af_remove_role_powers', 'af_update_role_powers', 'af_add_role_power', 'af_remove_role_power', 'af_index_role_users', 'af_add_role_users', 'af_add_role_user', 'af_index_users', 'af_create_users', 'af_show_user', 'af_update_user', 'af_destroy_user', 'af_block_user', 'af_unblock_user', 'af_restore_user', 'af_index_user_addresses', 'af_create_user_addresses', 'af_show_user_address', 'af_update_user_address', 'af_destroy_user_address', 'af_index_user_im_contacts', 'af_create_user_im_contacts', 'af_show_user_im_contact', 'af_update_user_im_contact', 'af_destroy_user_im_contact', 'af_index_user_phones', 'af_create_user_phones', 'af_show_user_phone', 'af_update_user_phone', 'af_destroy_user_phone', 'af_index_user_social_media_profiles', 'af_create_user_social_media_profiles', 'af_show_user_social_media_profile', 'af_update_user_social_media_profile', 'af_destroy_user_social_media_profile')[0m
+Completed 200 OK in 117ms (Views: 99.4ms | ActiveRecord: 6.6ms)
+
+
+Started OPTIONS "/latest/roles/9.json" for 127.0.0.1 at 2014-01-30 20:05:39 +0100
+Processing by PagesController#options as JSON
+  Parameters: {"path"=>"latest/roles/9"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started DELETE "/latest/roles/9.json" for 127.0.0.1 at 2014-01-30 20:05:39 +0100
+Processing by A::V20140101::RolesController#destroy as JSON
+  Parameters: {"id"=>"9"}
+  [1m[35mSession Load (0.5ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.3ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mMpx::Role Load (0.4ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' AND "roles"."id" = $1 LIMIT 1[0m  [["id", 9]]
+  [1m[35mHABTM_Powers Load (0.6ms)[0m  SELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (9)
+  [1m[36mPower Load (0.8ms)[0m  [1mSELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_roles')[0m
+  [1m[35mMpx::Role Load (0.5ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."id" = $1 LIMIT 1  [["id", 9]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."role_id" = $1  [["role_id", 9]]
+  [1m[36mSQL (0.5ms)[0m  [1mDELETE FROM "powers_roles" WHERE "powers_roles"."role_id" = $1[0m  [["role_id", 9]]
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "roles" WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."id" = $1  [["id", 9]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+Completed 204 No Content in 22ms (ActiveRecord: 6.6ms)
+
+
+Started GET "/latest/powers.json" for 127.0.0.1 at 2014-01-30 20:06:07 +0100
+Processing by A::V20140101::PowersController#index as JSON
+  [1m[35mPower Load (0.6ms)[0m  SELECT "powers".* FROM "powers"
+Completed 200 OK in 10ms (Views: 8.1ms | ActiveRecord: 0.6ms)
+
+
+Started OPTIONS "/latest/roles.json" for 127.0.0.1 at 2014-01-30 20:06:12 +0100
+Processing by PagesController#options as JSON
+  Parameters: {"path"=>"latest/roles"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started POST "/latest/roles.json" for 127.0.0.1 at 2014-01-30 20:06:12 +0100
+Processing by A::V20140101::RolesController#create as JSON
+  Parameters: {"name"=>"sdfs", "power_ids"=>["af_index_groups"], "role"=>{"name"=>"sdfs", "power_ids"=>["af_index_groups"]}}
+  [1m[36mSession Load (0.4ms)[0m  [1mSELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1  [["id", 7211]]
+  [1m[36mAffiliation Load (0.4ms)[0m  [1mSELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1[0m  [["id", "mpx"]]
+Unpermitted parameters: format, role
+  [1m[35mPower Load (0.5ms)[0m  SELECT  "powers".* FROM "powers"  WHERE "powers"."id" = $1 LIMIT 1  [["id", "af_index_groups"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mPower Exists (0.5ms)[0m  SELECT  1 AS one FROM "powers"  WHERE ("powers"."action" = 'index' AND "powers"."id" != 'af_index_groups' AND "powers"."module" = 'af' AND "powers"."resource" = 'groups') LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1[0m  [["id", "mpx"]]
+  [1m[35mRole Exists (0.3ms)[0m  SELECT  1 AS one FROM "roles"  WHERE ("roles"."name" = 'sdfs' AND "roles"."affiliation_id" = 'mpx') LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "roles" ("affiliation_id", "created_at", "name", "type", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["affiliation_id", "mpx"], ["created_at", "2014-01-30 19:06:12.693905"], ["name", "sdfs"], ["type", "Mpx::Role"], ["updated_at", "2014-01-30 19:06:12.693905"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "powers_roles" ("power_id", "role_id") VALUES ($1, $2)  [["power_id", "af_index_groups"], ["role_id", 10]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+Completed 201 Created in 43ms (Views: 1.8ms | ActiveRecord: 15.0ms)
+
+
+Started GET "/latest/roles.json?order=asc&page=1&per=25&sort=id" for 127.0.0.1 at 2014-01-30 20:06:12 +0100
+Processing by A::V20140101::RolesController#index as JSON
+  Parameters: {"order"=>"asc", "page"=>"1", "per"=>"25", "sort"=>"id"}
+  [1m[35mSession Load (0.6ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (1.2ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.3ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36m (0.8ms)[0m  [1mSELECT COUNT(*) FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx'[0m
+  [1m[35mMpx::Role Load (0.6ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' LIMIT 25 OFFSET 0
+  [1m[36mHABTM_Powers Load (0.8ms)[0m  [1mSELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (4, 10)[0m
+  [1m[35mPower Load (1.4ms)[0m  SELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_groups', 'af_create_groups', 'af_show_group', 'af_update_group', 'af_destroy_group', 'af_restore_group', 'af_index_group_users', 'af_add_group_users', 'af_remove_group_users', 'af_add_group_user', 'af_remove_group_user', 'af_index_organizations', 'af_create_organizations', 'af_show_organization', 'af_update_organization', 'af_destroy_organization', 'af_restore_organization', 'af_index_organization_addresses', 'af_create_organization_addresses', 'af_show_organization_address', 'af_update_organization_address', 'af_destroy_organization_address', 'af_index_organization_aliases', 'af_create_organization_aliases', 'af_show_organization_alias', 'af_update_organization_alias', 'af_destroy_organization_alias', 'af_index_organization_bank_accounts', 'af_create_organization_bank_accounts', 'af_show_organization_bank_account', 'af_update_organization_bank_account', 'af_destroy_organization_bank_account', 'af_index_organization_courier_services', 'af_create_organization_courier_services', 'af_show_organization_courier_service', 'af_update_organization_courier_service', 'af_destroy_organization_courier_service', 'af_index_organization_im_contacts', 'af_create_organization_im_contacts', 'af_show_organization_im_contact', 'af_update_organization_im_contact', 'af_destroy_organization_im_contact', 'af_index_organization_key_persons', 'af_create_organization_key_persons', 'af_show_organization_key_person', 'af_update_organization_key_person', 'af_destroy_organization_key_person', 'af_index_organization_phones', 'af_create_organization_phones', 'af_show_organization_phone', 'af_update_organization_phone', 'af_destroy_organization_phone', 'af_index_organization_social_media_profiles', 'af_create_organization_social_media_profiles', 'af_show_organization_social_media_profile', 'af_update_organization_social_media_profile', 'af_destroy_organization_social_media_profile', 'af_index_organization_users', 'af_create_organization_users', 'af_show_organization_user', 'af_update_organization_user', 'af_destroy_organization_user', 'af_restore_organization_user', 'af_block_organization_user', 'af_unblock_organization_user', 'af_index_organization_website_urls', 'af_create_organization_website_urls', 'af_show_organization_website_url', 'af_update_organization_website_url', 'af_destroy_organization_website_url', 'af_index_roles', 'af_create_roles', 'af_show_roles', 'af_update_role', 'af_destroy_role', 'af_index_role_powers', 'af_add_role_powers', 'af_remove_role_powers', 'af_update_role_powers', 'af_add_role_power', 'af_remove_role_power', 'af_index_role_users', 'af_add_role_users', 'af_add_role_user', 'af_index_users', 'af_create_users', 'af_show_user', 'af_update_user', 'af_destroy_user', 'af_block_user', 'af_unblock_user', 'af_restore_user', 'af_index_user_addresses', 'af_create_user_addresses', 'af_show_user_address', 'af_update_user_address', 'af_destroy_user_address', 'af_index_user_im_contacts', 'af_create_user_im_contacts', 'af_show_user_im_contact', 'af_update_user_im_contact', 'af_destroy_user_im_contact', 'af_index_user_phones', 'af_create_user_phones', 'af_show_user_phone', 'af_update_user_phone', 'af_destroy_user_phone', 'af_index_user_social_media_profiles', 'af_create_user_social_media_profiles', 'af_show_user_social_media_profile', 'af_update_user_social_media_profile', 'af_destroy_user_social_media_profile')
+Completed 200 OK in 128ms (Views: 113.3ms | ActiveRecord: 5.8ms)
+
+
+Started OPTIONS "/latest/roles/10.json" for 127.0.0.1 at 2014-01-30 20:06:16 +0100
+Processing by PagesController#options as JSON
+  Parameters: {"path"=>"latest/roles/10"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started DELETE "/latest/roles/10.json" for 127.0.0.1 at 2014-01-30 20:06:16 +0100
+Processing by A::V20140101::RolesController#destroy as JSON
+  Parameters: {"id"=>"10"}
+  [1m[36mSession Load (0.5ms)[0m  [1mSELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1  [["id", 7211]]
+  [1m[36mAffiliation Load (0.3ms)[0m  [1mSELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1[0m  [["id", "mpx"]]
+  [1m[35mMpx::Role Load (0.4ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' AND "roles"."id" = $1 LIMIT 1  [["id", 10]]
+  [1m[36mHABTM_Powers Load (0.6ms)[0m  [1mSELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (10)[0m
+  [1m[35mPower Load (0.5ms)[0m  SELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_groups')
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."role_id" = $1  [["role_id", 10]]
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+Completed 500 Internal Server Error in 18ms
+
+NoMethodError (undefined method `to_sym' for nil:NilClass):
+  app/controllers/a/v20140101/roles_controller.rb:28:in `destroy'
+
+
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.6ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.1ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (15.9ms)
+
+
+Started GET "/session.json" for 127.0.0.1 at 2014-01-30 20:08:27 +0100
+Processing by A::V20140101::SessionsController#show as JSON
+  [1m[35mSession Load (0.3ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.2ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mRole Load (0.5ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = $1  ORDER BY "roles"."id" ASC LIMIT 1[0m  [["id", 4]]
+  [1m[35mPower Load (1.2ms)[0m  SELECT "powers".* FROM "powers" INNER JOIN "powers_roles" ON "powers"."id" = "powers_roles"."power_id" WHERE "powers_roles"."role_id" = $1  [["role_id", 4]]
+Completed 200 OK in 35ms (Views: 0.9ms | ActiveRecord: 8.8ms)
+
+
+Started GET "/latest/roles.json?order=asc&page=1&per=25&sort=id" for 127.0.0.1 at 2014-01-30 20:08:27 +0100
+Processing by A::V20140101::RolesController#index as JSON
+  Parameters: {"order"=>"asc", "page"=>"1", "per"=>"25", "sort"=>"id"}
+  [1m[36mSession Load (0.6ms)[0m  [1mSELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1  [["id", 7211]]
+  [1m[36mAffiliation Load (0.4ms)[0m  [1mSELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1[0m  [["id", "mpx"]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx'
+  [1m[36mMpx::Role Load (0.7ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' LIMIT 25 OFFSET 0[0m
+  [1m[35mHABTM_Powers Load (0.9ms)[0m  SELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (4, 10)
+  [1m[36mPower Load (1.2ms)[0m  [1mSELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_groups', 'af_create_groups', 'af_show_group', 'af_update_group', 'af_destroy_group', 'af_restore_group', 'af_index_group_users', 'af_add_group_users', 'af_remove_group_users', 'af_add_group_user', 'af_remove_group_user', 'af_index_organizations', 'af_create_organizations', 'af_show_organization', 'af_update_organization', 'af_destroy_organization', 'af_restore_organization', 'af_index_organization_addresses', 'af_create_organization_addresses', 'af_show_organization_address', 'af_update_organization_address', 'af_destroy_organization_address', 'af_index_organization_aliases', 'af_create_organization_aliases', 'af_show_organization_alias', 'af_update_organization_alias', 'af_destroy_organization_alias', 'af_index_organization_bank_accounts', 'af_create_organization_bank_accounts', 'af_show_organization_bank_account', 'af_update_organization_bank_account', 'af_destroy_organization_bank_account', 'af_index_organization_courier_services', 'af_create_organization_courier_services', 'af_show_organization_courier_service', 'af_update_organization_courier_service', 'af_destroy_organization_courier_service', 'af_index_organization_im_contacts', 'af_create_organization_im_contacts', 'af_show_organization_im_contact', 'af_update_organization_im_contact', 'af_destroy_organization_im_contact', 'af_index_organization_key_persons', 'af_create_organization_key_persons', 'af_show_organization_key_person', 'af_update_organization_key_person', 'af_destroy_organization_key_person', 'af_index_organization_phones', 'af_create_organization_phones', 'af_show_organization_phone', 'af_update_organization_phone', 'af_destroy_organization_phone', 'af_index_organization_social_media_profiles', 'af_create_organization_social_media_profiles', 'af_show_organization_social_media_profile', 'af_update_organization_social_media_profile', 'af_destroy_organization_social_media_profile', 'af_index_organization_users', 'af_create_organization_users', 'af_show_organization_user', 'af_update_organization_user', 'af_destroy_organization_user', 'af_restore_organization_user', 'af_block_organization_user', 'af_unblock_organization_user', 'af_index_organization_website_urls', 'af_create_organization_website_urls', 'af_show_organization_website_url', 'af_update_organization_website_url', 'af_destroy_organization_website_url', 'af_index_roles', 'af_create_roles', 'af_show_roles', 'af_update_role', 'af_destroy_role', 'af_index_role_powers', 'af_add_role_powers', 'af_remove_role_powers', 'af_update_role_powers', 'af_add_role_power', 'af_remove_role_power', 'af_index_role_users', 'af_add_role_users', 'af_add_role_user', 'af_index_users', 'af_create_users', 'af_show_user', 'af_update_user', 'af_destroy_user', 'af_block_user', 'af_unblock_user', 'af_restore_user', 'af_index_user_addresses', 'af_create_user_addresses', 'af_show_user_address', 'af_update_user_address', 'af_destroy_user_address', 'af_index_user_im_contacts', 'af_create_user_im_contacts', 'af_show_user_im_contact', 'af_update_user_im_contact', 'af_destroy_user_im_contact', 'af_index_user_phones', 'af_create_user_phones', 'af_show_user_phone', 'af_update_user_phone', 'af_destroy_user_phone', 'af_index_user_social_media_profiles', 'af_create_user_social_media_profiles', 'af_show_user_social_media_profile', 'af_update_user_social_media_profile', 'af_destroy_user_social_media_profile')[0m
+Completed 200 OK in 124ms (Views: 107.2ms | ActiveRecord: 7.0ms)
+
+
+Started OPTIONS "/latest/roles/10.json" for 127.0.0.1 at 2014-01-30 20:08:30 +0100
+Processing by PagesController#options as JSON
+  Parameters: {"path"=>"latest/roles/10"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started DELETE "/latest/roles/10.json" for 127.0.0.1 at 2014-01-30 20:08:30 +0100
+Processing by A::V20140101::RolesController#destroy as JSON
+  Parameters: {"id"=>"10"}
+  [1m[35mSession Load (0.5ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.3ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mMpx::Role Load (0.5ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' AND "roles"."id" = $1 LIMIT 1[0m  [["id", 10]]
+  [1m[35mHABTM_Powers Load (0.4ms)[0m  SELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (10)
+  [1m[36mPower Load (0.5ms)[0m  [1mSELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_groups')[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mSELECT COUNT(*) FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."role_id" = $1[0m  [["role_id", 10]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+Completed 500 Internal Server Error in 18ms
+
+NoMethodError (undefined method `to_sym' for nil:NilClass):
+  app/controllers/a/v20140101/roles_controller.rb:28:in `destroy'
+
+
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.7ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.2ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (11.7ms)
+
+
+Started OPTIONS "/latest/roles/10.json" for 127.0.0.1 at 2014-01-30 20:08:42 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PagesController#options as JSON
+  Parameters: {"path"=>"latest/roles/10"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started DELETE "/latest/roles/10.json" for 127.0.0.1 at 2014-01-30 20:08:42 +0100
+Processing by A::V20140101::RolesController#destroy as JSON
+  Parameters: {"id"=>"10"}
+  [1m[35mSession Load (1.3ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (1.7ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.6ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mMpx::Role Load (0.6ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' AND "roles"."id" = $1 LIMIT 1[0m  [["id", 10]]
+  [1m[35mHABTM_Powers Load (0.8ms)[0m  SELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (10)
+  [1m[36mPower Load (0.9ms)[0m  [1mSELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_groups')[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Completed 500 Internal Server Error in 149ms
+
+NoMethodError (undefined method `to_sym' for nil:NilClass):
+  app/controllers/a/v20140101/roles_controller.rb:28:in `destroy'
+
+
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.5ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.1ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (12.1ms)
+
+
+Started OPTIONS "/latest/roles/10.json" for 127.0.0.1 at 2014-01-30 20:23:32 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PagesController#options as JSON
+  Parameters: {"path"=>"latest/roles/10"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started DELETE "/latest/roles/10.json" for 127.0.0.1 at 2014-01-30 20:23:32 +0100
+Processing by A::V20140101::RolesController#destroy as JSON
+  Parameters: {"id"=>"10"}
+  [1m[35mSession Load (1.0ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (1.6ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.6ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mMpx::Role Load (0.5ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' AND "roles"."id" = $1 LIMIT 1[0m  [["id", 10]]
+  [1m[35mHABTM_Powers Load (0.7ms)[0m  SELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (10)
+  [1m[36mPower Load (1.0ms)[0m  [1mSELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_groups')[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."role_id" = $1[0m  [["role_id", 10]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Completed 500 Internal Server Error in 150ms
+
+NoMethodError (undefined method `to_sym' for nil:NilClass):
+  app/controllers/a/v20140101/roles_controller.rb:28:in `destroy'
+
+
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.6ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.4ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (13.0ms)
+DEPRECATION WARNING: You didn't set config.secret_key_base. Read the upgrade documentation to learn more about this new config option. (called from service at /Users/davidhorsak/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138)
+
+
+Started OPTIONS "/latest/roles/10.json" for 127.0.0.1 at 2014-01-30 20:28:25 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PagesController#options as JSON
+  Parameters: {"path"=>"latest/roles/10"}
+Completed 204 No Content in 1ms (ActiveRecord: 0.0ms)
+
+
+Started DELETE "/latest/roles/10.json" for 127.0.0.1 at 2014-01-30 20:28:25 +0100
+Processing by A::V20140101::RolesController#destroy as JSON
+  Parameters: {"id"=>"10"}
+  [1m[35mSession Load (1.0ms)[0m  SELECT "sessions".* FROM "sessions" WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (5.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1 ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (1.0ms)[0m  SELECT "affiliations".* FROM "affiliations" WHERE "affiliations"."id" = $1 ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mMpx::Role Load (1.2ms)[0m  [1mSELECT "roles".* FROM "roles" WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' AND "roles"."id" = $1 LIMIT 1[0m  [["id", "10"]]
+  [1m[35mSQL (1.9ms)[0m  SELECT "powers".*, "t0"."role_id" AS ar_association_key_name FROM "powers" INNER JOIN "powers_roles" "t0" ON "powers"."id" = "t0"."power_id" WHERE "t0"."role_id" IN (10)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.0ms)[0m  SELECT COUNT(*) FROM "users" WHERE "users"."deleted_at" IS NULL AND "users"."role_id" = $1  [["role_id", 10]]
+  [1m[36m (1.0ms)[0m  [1mDELETE FROM "powers_roles" WHERE "powers_roles"."role_id" = 10 AND "powers_roles"."power_id" IN ('af_index_groups')[0m
+  [1m[35mSQL (0.9ms)[0m  DELETE FROM "roles" WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."id" = $1  [["id", 10]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Completed 204 No Content in 138ms (ActiveRecord: 29.4ms)
+  [1m[36mAffiliation Load (0.8ms)[0m  [1mSELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1[0m  [["id", "mpx"]]
+
+
+Started GET "/latest/roles.json?order=asc&page=1&per=25&sort=id" for 127.0.0.1 at 2014-01-30 20:37:19 +0100
+Processing by A::V20140101::RolesController#index as JSON
+  Parameters: {"order"=>"asc", "page"=>"1", "per"=>"25", "sort"=>"id"}
+  [1m[35mSession Load (0.7ms)[0m  SELECT "sessions".* FROM "sessions" WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1 ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (3.3ms)[0m  SELECT "affiliations".* FROM "affiliations" WHERE "affiliations"."id" = $1 ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36m (0.5ms)[0m  [1mSELECT COUNT(*) FROM "roles" WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx'[0m
+  [1m[35mMpx::Role Load (0.7ms)[0m  SELECT "roles".* FROM "roles" WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' LIMIT 25 OFFSET 0
+  [1m[36mSQL (2.2ms)[0m  [1mSELECT "powers".*, "t0"."role_id" AS ar_association_key_name FROM "powers" INNER JOIN "powers_roles" "t0" ON "powers"."id" = "t0"."power_id" WHERE "t0"."role_id" IN (4)[0m
+Completed 200 OK in 49ms (Views: 25.0ms | ActiveRecord: 8.4ms)
+
+
+Started GET "/latest/powers.json" for 127.0.0.1 at 2014-01-30 20:37:21 +0100
+Processing by A::V20140101::PowersController#index as JSON
+  [1m[35mPower Load (0.8ms)[0m  SELECT "powers".* FROM "powers"
+Completed 200 OK in 20ms (Views: 17.8ms | ActiveRecord: 0.8ms)
+
+
+Started OPTIONS "/latest/roles.json" for 127.0.0.1 at 2014-01-30 20:37:27 +0100
+Processing by PagesController#options as JSON
+  Parameters: {"path"=>"latest/roles"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started POST "/latest/roles.json" for 127.0.0.1 at 2014-01-30 20:37:27 +0100
+Processing by A::V20140101::RolesController#create as JSON
+  Parameters: {"name"=>"sdfsd", "power_ids"=>["af_index_organizations"], "role"=>{"name"=>"sdfsd", "power_ids"=>["af_index_organizations"]}}
+  [1m[36mSession Load (0.7ms)[0m  [1mSELECT "sessions".* FROM "sessions" WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1[0m
+  [1m[35mUser Load (1.1ms)[0m  SELECT "users".* FROM "users" WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1 ORDER BY "users"."created_at" DESC LIMIT 1  [["id", 7211]]
+  [1m[36mAffiliation Load (0.5ms)[0m  [1mSELECT "affiliations".* FROM "affiliations" WHERE "affiliations"."id" = $1 ORDER BY "affiliations"."created_at" DESC LIMIT 1[0m  [["id", "mpx"]]
+Unpermitted parameters: format, role
+  [1m[35mPower Load (0.6ms)[0m  SELECT "powers".* FROM "powers" WHERE "powers"."id" = $1 LIMIT 1  [["id", "af_index_organizations"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mPower Exists (1.0ms)[0m  SELECT 1 AS one FROM "powers" WHERE ("powers"."action" = 'index' AND "powers"."id" != 'af_index_organizations' AND "powers"."module" = 'af' AND "powers"."resource" = 'organizations') LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "affiliations".* FROM "affiliations" WHERE "affiliations"."id" = $1 ORDER BY "affiliations"."created_at" DESC LIMIT 1[0m  [["id", "mpx"]]
+  [1m[35mRole Exists (0.6ms)[0m  SELECT 1 AS one FROM "roles" WHERE ("roles"."name" = 'sdfsd' AND "roles"."affiliation_id" = 'mpx') LIMIT 1
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "roles" ("affiliation_id", "created_at", "name", "type", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["affiliation_id", "mpx"], ["created_at", Thu, 30 Jan 2014 19:37:27 UTC +00:00], ["name", "sdfsd"], ["type", "Mpx::Role"], ["updated_at", Thu, 30 Jan 2014 19:37:27 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  INSERT INTO "powers_roles" ("role_id", "power_id") VALUES (11, 'af_index_organizations')
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Completed 201 Created in 31ms (Views: 0.9ms | ActiveRecord: 6.9ms)
+
+
+Started GET "/latest/roles.json?order=asc&page=1&per=25&sort=id" for 127.0.0.1 at 2014-01-30 20:37:27 +0100
+Processing by A::V20140101::RolesController#index as JSON
+  Parameters: {"order"=>"asc", "page"=>"1", "per"=>"25", "sort"=>"id"}
+  [1m[35mSession Load (0.8ms)[0m  SELECT "sessions".* FROM "sessions" WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1 ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.7ms)[0m  SELECT "affiliations".* FROM "affiliations" WHERE "affiliations"."id" = $1 ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36m (1.9ms)[0m  [1mSELECT COUNT(*) FROM "roles" WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx'[0m
+  [1m[35mMpx::Role Load (0.9ms)[0m  SELECT "roles".* FROM "roles" WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' LIMIT 25 OFFSET 0
+  [1m[36mSQL (2.7ms)[0m  [1mSELECT "powers".*, "t0"."role_id" AS ar_association_key_name FROM "powers" INNER JOIN "powers_roles" "t0" ON "powers"."id" = "t0"."power_id" WHERE "t0"."role_id" IN (4, 11)[0m
+Completed 200 OK in 53ms (Views: 32.7ms | ActiveRecord: 7.9ms)
+  [1m[35mAffiliation Load (0.7ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mAffiliation Load (0.9ms)[0m  [1mSELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1[0m  [["id", "mpx"]]
+  [1m[35mMpx::Role Load (1.0ms)[0m  SELECT "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx'
+  [1m[36mHABTM_Powers Load (1.0ms)[0m  [1mSELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (4, 11)[0m
+  [1m[35mPower Load (1.9ms)[0m  SELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_groups', 'af_create_groups', 'af_show_group', 'af_update_group', 'af_destroy_group', 'af_restore_group', 'af_index_group_users', 'af_add_group_users', 'af_remove_group_users', 'af_add_group_user', 'af_remove_group_user', 'af_index_organizations', 'af_create_organizations', 'af_show_organization', 'af_update_organization', 'af_destroy_organization', 'af_restore_organization', 'af_index_organization_addresses', 'af_create_organization_addresses', 'af_show_organization_address', 'af_update_organization_address', 'af_destroy_organization_address', 'af_index_organization_aliases', 'af_create_organization_aliases', 'af_show_organization_alias', 'af_update_organization_alias', 'af_destroy_organization_alias', 'af_index_organization_bank_accounts', 'af_create_organization_bank_accounts', 'af_show_organization_bank_account', 'af_update_organization_bank_account', 'af_destroy_organization_bank_account', 'af_index_organization_courier_services', 'af_create_organization_courier_services', 'af_show_organization_courier_service', 'af_update_organization_courier_service', 'af_destroy_organization_courier_service', 'af_index_organization_im_contacts', 'af_create_organization_im_contacts', 'af_show_organization_im_contact', 'af_update_organization_im_contact', 'af_destroy_organization_im_contact', 'af_index_organization_key_persons', 'af_create_organization_key_persons', 'af_show_organization_key_person', 'af_update_organization_key_person', 'af_destroy_organization_key_person', 'af_index_organization_phones', 'af_create_organization_phones', 'af_show_organization_phone', 'af_update_organization_phone', 'af_destroy_organization_phone', 'af_index_organization_social_media_profiles', 'af_create_organization_social_media_profiles', 'af_show_organization_social_media_profile', 'af_update_organization_social_media_profile', 'af_destroy_organization_social_media_profile', 'af_index_organization_users', 'af_create_organization_users', 'af_show_organization_user', 'af_update_organization_user', 'af_destroy_organization_user', 'af_restore_organization_user', 'af_block_organization_user', 'af_unblock_organization_user', 'af_index_organization_website_urls', 'af_create_organization_website_urls', 'af_show_organization_website_url', 'af_update_organization_website_url', 'af_destroy_organization_website_url', 'af_index_roles', 'af_create_roles', 'af_show_roles', 'af_update_role', 'af_destroy_role', 'af_index_role_powers', 'af_add_role_powers', 'af_remove_role_powers', 'af_update_role_powers', 'af_add_role_power', 'af_remove_role_power', 'af_index_role_users', 'af_add_role_users', 'af_add_role_user', 'af_index_users', 'af_create_users', 'af_show_user', 'af_update_user', 'af_destroy_user', 'af_block_user', 'af_unblock_user', 'af_restore_user', 'af_index_user_addresses', 'af_create_user_addresses', 'af_show_user_address', 'af_update_user_address', 'af_destroy_user_address', 'af_index_user_im_contacts', 'af_create_user_im_contacts', 'af_show_user_im_contact', 'af_update_user_im_contact', 'af_destroy_user_im_contact', 'af_index_user_phones', 'af_create_user_phones', 'af_show_user_phone', 'af_update_user_phone', 'af_destroy_user_phone', 'af_index_user_social_media_profiles', 'af_create_user_social_media_profiles', 'af_show_user_social_media_profile', 'af_update_user_social_media_profile', 'af_destroy_user_social_media_profile')
+  [1m[36mMpx::Role Load (0.6ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' AND "roles"."id" = $1 LIMIT 1[0m  [["id", 11]]
+  [1m[35mHABTM_Powers Load (0.5ms)[0m  SELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (11)
+  [1m[36mPower Load (0.5ms)[0m  [1mSELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_organizations')[0m
+  [1m[35mMpx::Role Load (0.8ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' AND "roles"."id" = $1 LIMIT 1  [["id", 11]]
+  [1m[36mHABTM_Powers Load (1.0ms)[0m  [1mSELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (11)[0m
+  [1m[35mPower Load (0.6ms)[0m  SELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_organizations')
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.7ms)[0m  SELECT COUNT(*) FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."role_id" = $1  [["role_id", 11]]
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+
+
+Started GET "/session.json" for 127.0.0.1 at 2014-01-30 20:41:06 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by A::V20140101::SessionsController#show as JSON
+  [1m[35mSession Load (1.0ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (1.6ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.6ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mRole Load (0.5ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = $1  ORDER BY "roles"."id" ASC LIMIT 1[0m  [["id", 4]]
+  [1m[35mPower Load (1.6ms)[0m  SELECT "powers".* FROM "powers" INNER JOIN "powers_roles" ON "powers"."id" = "powers_roles"."power_id" WHERE "powers_roles"."role_id" = $1  [["role_id", 4]]
+Completed 200 OK in 149ms (Views: 0.7ms | ActiveRecord: 24.1ms)
+
+
+Started GET "/latest/roles.json?order=asc&page=1&per=25&sort=id" for 127.0.0.1 at 2014-01-30 20:41:08 +0100
+Processing by A::V20140101::RolesController#index as JSON
+  Parameters: {"order"=>"asc", "page"=>"1", "per"=>"25", "sort"=>"id"}
+  [1m[36mSession Load (0.6ms)[0m  [1mSELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1[0m
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1  [["id", 7211]]
+  [1m[36mAffiliation Load (0.8ms)[0m  [1mSELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1[0m  [["id", "mpx"]]
+  [1m[35m (0.7ms)[0m  SELECT COUNT(*) FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx'
+  [1m[36mMpx::Role Load (0.5ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' LIMIT 25 OFFSET 0[0m
+  [1m[35mHABTM_Powers Load (0.7ms)[0m  SELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (4, 11)
+  [1m[36mPower Load (1.6ms)[0m  [1mSELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_groups', 'af_create_groups', 'af_show_group', 'af_update_group', 'af_destroy_group', 'af_restore_group', 'af_index_group_users', 'af_add_group_users', 'af_remove_group_users', 'af_add_group_user', 'af_remove_group_user', 'af_index_organizations', 'af_create_organizations', 'af_show_organization', 'af_update_organization', 'af_destroy_organization', 'af_restore_organization', 'af_index_organization_addresses', 'af_create_organization_addresses', 'af_show_organization_address', 'af_update_organization_address', 'af_destroy_organization_address', 'af_index_organization_aliases', 'af_create_organization_aliases', 'af_show_organization_alias', 'af_update_organization_alias', 'af_destroy_organization_alias', 'af_index_organization_bank_accounts', 'af_create_organization_bank_accounts', 'af_show_organization_bank_account', 'af_update_organization_bank_account', 'af_destroy_organization_bank_account', 'af_index_organization_courier_services', 'af_create_organization_courier_services', 'af_show_organization_courier_service', 'af_update_organization_courier_service', 'af_destroy_organization_courier_service', 'af_index_organization_im_contacts', 'af_create_organization_im_contacts', 'af_show_organization_im_contact', 'af_update_organization_im_contact', 'af_destroy_organization_im_contact', 'af_index_organization_key_persons', 'af_create_organization_key_persons', 'af_show_organization_key_person', 'af_update_organization_key_person', 'af_destroy_organization_key_person', 'af_index_organization_phones', 'af_create_organization_phones', 'af_show_organization_phone', 'af_update_organization_phone', 'af_destroy_organization_phone', 'af_index_organization_social_media_profiles', 'af_create_organization_social_media_profiles', 'af_show_organization_social_media_profile', 'af_update_organization_social_media_profile', 'af_destroy_organization_social_media_profile', 'af_index_organization_users', 'af_create_organization_users', 'af_show_organization_user', 'af_update_organization_user', 'af_destroy_organization_user', 'af_restore_organization_user', 'af_block_organization_user', 'af_unblock_organization_user', 'af_index_organization_website_urls', 'af_create_organization_website_urls', 'af_show_organization_website_url', 'af_update_organization_website_url', 'af_destroy_organization_website_url', 'af_index_roles', 'af_create_roles', 'af_show_roles', 'af_update_role', 'af_destroy_role', 'af_index_role_powers', 'af_add_role_powers', 'af_remove_role_powers', 'af_update_role_powers', 'af_add_role_power', 'af_remove_role_power', 'af_index_role_users', 'af_add_role_users', 'af_add_role_user', 'af_index_users', 'af_create_users', 'af_show_user', 'af_update_user', 'af_destroy_user', 'af_block_user', 'af_unblock_user', 'af_restore_user', 'af_index_user_addresses', 'af_create_user_addresses', 'af_show_user_address', 'af_update_user_address', 'af_destroy_user_address', 'af_index_user_im_contacts', 'af_create_user_im_contacts', 'af_show_user_im_contact', 'af_update_user_im_contact', 'af_destroy_user_im_contact', 'af_index_user_phones', 'af_create_user_phones', 'af_show_user_phone', 'af_update_user_phone', 'af_destroy_user_phone', 'af_index_user_social_media_profiles', 'af_create_user_social_media_profiles', 'af_show_user_social_media_profile', 'af_update_user_social_media_profile', 'af_destroy_user_social_media_profile')[0m
+Completed 200 OK in 113ms (Views: 93.1ms | ActiveRecord: 6.9ms)
+
+
+Started OPTIONS "/latest/roles/11.json" for 127.0.0.1 at 2014-01-30 20:41:11 +0100
+Processing by PagesController#options as JSON
+  Parameters: {"path"=>"latest/roles/11"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started DELETE "/latest/roles/11.json" for 127.0.0.1 at 2014-01-30 20:41:11 +0100
+Processing by A::V20140101::RolesController#destroy as JSON
+  Parameters: {"id"=>"11"}
+  [1m[35mSession Load (0.6ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.4ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mMpx::Role Load (0.5ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' AND "roles"."id" = $1 LIMIT 1[0m  [["id", 11]]
+  [1m[35mHABTM_Powers Load (0.5ms)[0m  SELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (11)
+  [1m[36mPower Load (0.5ms)[0m  [1mSELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_organizations')[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."role_id" = $1[0m  [["role_id", 11]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Completed 500 Internal Server Error in 19ms
+
+NoMethodError (undefined method `to_sym' for nil:NilClass):
+  app/controllers/a/v20140101/roles_controller.rb:28:in `destroy'
+
+
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.5ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.2ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/gems/actionpack-4.1.0.beta1/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (13.4ms)
+
+
+Started OPTIONS "/latest/roles/11.json" for 127.0.0.1 at 2014-01-30 20:44:50 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PagesController#options as JSON
+  Parameters: {"path"=>"latest/roles/11"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started DELETE "/latest/roles/11.json" for 127.0.0.1 at 2014-01-30 20:44:51 +0100
+Processing by A::V20140101::RolesController#destroy as JSON
+  Parameters: {"id"=>"11"}
+  [1m[35mSession Load (1.0ms)[0m  SELECT "sessions".* FROM "sessions" WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (5.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1 ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.9ms)[0m  SELECT "affiliations".* FROM "affiliations" WHERE "affiliations"."id" = $1 ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mMpx::Role Load (1.0ms)[0m  [1mSELECT "roles".* FROM "roles" WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' AND "roles"."id" = $1 LIMIT 1[0m  [["id", "11"]]
+  [1m[35mSQL (1.9ms)[0m  SELECT "powers".*, "t0"."role_id" AS ar_association_key_name FROM "powers" INNER JOIN "powers_roles" "t0" ON "powers"."id" = "t0"."power_id" WHERE "t0"."role_id" IN (11)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.2ms)[0m  SELECT COUNT(*) FROM "users" WHERE "users"."deleted_at" IS NULL AND "users"."role_id" = $1  [["role_id", 11]]
+  [1m[36m (0.6ms)[0m  [1mDELETE FROM "powers_roles" WHERE "powers_roles"."role_id" = 11 AND "powers_roles"."power_id" IN ('af_index_organizations')[0m
+  [1m[35mSQL (0.6ms)[0m  DELETE FROM "roles" WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."id" = $1  [["id", 11]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Completed 204 No Content in 131ms (ActiveRecord: 28.9ms)
+
+
+Started GET "/session.json" for 127.0.0.1 at 2014-01-30 21:57:04 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by A::V20140101::SessionsController#show as JSON
+  [1m[35mSession Load (1.6ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (1.7ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.9ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mRole Load (0.5ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mPower Load (2.3ms)[0m  SELECT "powers".* FROM "powers" INNER JOIN "powers_roles" ON "powers"."id" = "powers_roles"."power_id" WHERE "powers_roles"."role_id" = $1  [["role_id", 4]]
+Completed 200 OK in 223ms (Views: 0.7ms | ActiveRecord: 62.4ms)
+
+
+Started GET "/latest/roles.json?order=asc&page=1&per=25&sort=id" for 127.0.0.1 at 2014-01-30 21:57:04 +0100
+Processing by A::V20140101::RolesController#index as JSON
+  Parameters: {"order"=>"asc", "page"=>"1", "per"=>"25", "sort"=>"id"}
+  [1m[36mSession Load (0.9ms)[0m  [1mSELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1[0m
+  [1m[35mUser Load (8.6ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1  [["id", 7211]]
+  [1m[36mAffiliation Load (14.0ms)[0m  [1mSELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1[0m  [["id", "mpx"]]
+  [1m[35m (0.6ms)[0m  SELECT COUNT(*) FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx'
+  [1m[36mMpx::Role Load (1.0ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' LIMIT 25 OFFSET 0[0m
+  [1m[35mHABTM_Powers Load (0.6ms)[0m  SELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (4)
+  [1m[36mPower Load (2.1ms)[0m  [1mSELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_groups', 'af_create_groups', 'af_show_group', 'af_update_group', 'af_destroy_group', 'af_restore_group', 'af_index_group_users', 'af_add_group_users', 'af_remove_group_users', 'af_add_group_user', 'af_remove_group_user', 'af_index_organizations', 'af_create_organizations', 'af_show_organization', 'af_update_organization', 'af_destroy_organization', 'af_restore_organization', 'af_index_organization_addresses', 'af_create_organization_addresses', 'af_show_organization_address', 'af_update_organization_address', 'af_destroy_organization_address', 'af_index_organization_aliases', 'af_create_organization_aliases', 'af_show_organization_alias', 'af_update_organization_alias', 'af_destroy_organization_alias', 'af_index_organization_bank_accounts', 'af_create_organization_bank_accounts', 'af_show_organization_bank_account', 'af_update_organization_bank_account', 'af_destroy_organization_bank_account', 'af_index_organization_courier_services', 'af_create_organization_courier_services', 'af_show_organization_courier_service', 'af_update_organization_courier_service', 'af_destroy_organization_courier_service', 'af_index_organization_im_contacts', 'af_create_organization_im_contacts', 'af_show_organization_im_contact', 'af_update_organization_im_contact', 'af_destroy_organization_im_contact', 'af_index_organization_key_persons', 'af_create_organization_key_persons', 'af_show_organization_key_person', 'af_update_organization_key_person', 'af_destroy_organization_key_person', 'af_index_organization_phones', 'af_create_organization_phones', 'af_show_organization_phone', 'af_update_organization_phone', 'af_destroy_organization_phone', 'af_index_organization_social_media_profiles', 'af_create_organization_social_media_profiles', 'af_show_organization_social_media_profile', 'af_update_organization_social_media_profile', 'af_destroy_organization_social_media_profile', 'af_index_organization_users', 'af_create_organization_users', 'af_show_organization_user', 'af_update_organization_user', 'af_destroy_organization_user', 'af_restore_organization_user', 'af_block_organization_user', 'af_unblock_organization_user', 'af_index_organization_website_urls', 'af_create_organization_website_urls', 'af_show_organization_website_url', 'af_update_organization_website_url', 'af_destroy_organization_website_url', 'af_index_roles', 'af_create_roles', 'af_show_roles', 'af_update_role', 'af_destroy_role', 'af_index_role_powers', 'af_add_role_powers', 'af_remove_role_powers', 'af_update_role_powers', 'af_add_role_power', 'af_remove_role_power', 'af_index_role_users', 'af_add_role_users', 'af_add_role_user', 'af_index_users', 'af_create_users', 'af_show_user', 'af_update_user', 'af_destroy_user', 'af_block_user', 'af_unblock_user', 'af_restore_user', 'af_index_user_addresses', 'af_create_user_addresses', 'af_show_user_address', 'af_update_user_address', 'af_destroy_user_address', 'af_index_user_im_contacts', 'af_create_user_im_contacts', 'af_show_user_im_contact', 'af_update_user_im_contact', 'af_destroy_user_im_contact', 'af_index_user_phones', 'af_create_user_phones', 'af_show_user_phone', 'af_update_user_phone', 'af_destroy_user_phone', 'af_index_user_social_media_profiles', 'af_create_user_social_media_profiles', 'af_show_user_social_media_profile', 'af_update_user_social_media_profile', 'af_destroy_user_social_media_profile')[0m
+Completed 200 OK in 193ms (Views: 149.8ms | ActiveRecord: 29.9ms)
+
+
+Started GET "/latest/roles.json?order=asc&page=1&per=25&sort=id" for 127.0.0.1 at 2014-01-30 21:57:14 +0100
+Processing by A::V20140101::RolesController#index as JSON
+  Parameters: {"order"=>"asc", "page"=>"1", "per"=>"25", "sort"=>"id"}
+  [1m[35mSession Load (0.5ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.5ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx'[0m
+  [1m[35mMpx::Role Load (0.4ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' LIMIT 25 OFFSET 0
+  [1m[36mHABTM_Powers Load (0.6ms)[0m  [1mSELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (4)[0m
+  [1m[35mPower Load (2.4ms)[0m  SELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_groups', 'af_create_groups', 'af_show_group', 'af_update_group', 'af_destroy_group', 'af_restore_group', 'af_index_group_users', 'af_add_group_users', 'af_remove_group_users', 'af_add_group_user', 'af_remove_group_user', 'af_index_organizations', 'af_create_organizations', 'af_show_organization', 'af_update_organization', 'af_destroy_organization', 'af_restore_organization', 'af_index_organization_addresses', 'af_create_organization_addresses', 'af_show_organization_address', 'af_update_organization_address', 'af_destroy_organization_address', 'af_index_organization_aliases', 'af_create_organization_aliases', 'af_show_organization_alias', 'af_update_organization_alias', 'af_destroy_organization_alias', 'af_index_organization_bank_accounts', 'af_create_organization_bank_accounts', 'af_show_organization_bank_account', 'af_update_organization_bank_account', 'af_destroy_organization_bank_account', 'af_index_organization_courier_services', 'af_create_organization_courier_services', 'af_show_organization_courier_service', 'af_update_organization_courier_service', 'af_destroy_organization_courier_service', 'af_index_organization_im_contacts', 'af_create_organization_im_contacts', 'af_show_organization_im_contact', 'af_update_organization_im_contact', 'af_destroy_organization_im_contact', 'af_index_organization_key_persons', 'af_create_organization_key_persons', 'af_show_organization_key_person', 'af_update_organization_key_person', 'af_destroy_organization_key_person', 'af_index_organization_phones', 'af_create_organization_phones', 'af_show_organization_phone', 'af_update_organization_phone', 'af_destroy_organization_phone', 'af_index_organization_social_media_profiles', 'af_create_organization_social_media_profiles', 'af_show_organization_social_media_profile', 'af_update_organization_social_media_profile', 'af_destroy_organization_social_media_profile', 'af_index_organization_users', 'af_create_organization_users', 'af_show_organization_user', 'af_update_organization_user', 'af_destroy_organization_user', 'af_restore_organization_user', 'af_block_organization_user', 'af_unblock_organization_user', 'af_index_organization_website_urls', 'af_create_organization_website_urls', 'af_show_organization_website_url', 'af_update_organization_website_url', 'af_destroy_organization_website_url', 'af_index_roles', 'af_create_roles', 'af_show_roles', 'af_update_role', 'af_destroy_role', 'af_index_role_powers', 'af_add_role_powers', 'af_remove_role_powers', 'af_update_role_powers', 'af_add_role_power', 'af_remove_role_power', 'af_index_role_users', 'af_add_role_users', 'af_add_role_user', 'af_index_users', 'af_create_users', 'af_show_user', 'af_update_user', 'af_destroy_user', 'af_block_user', 'af_unblock_user', 'af_restore_user', 'af_index_user_addresses', 'af_create_user_addresses', 'af_show_user_address', 'af_update_user_address', 'af_destroy_user_address', 'af_index_user_im_contacts', 'af_create_user_im_contacts', 'af_show_user_im_contact', 'af_update_user_im_contact', 'af_destroy_user_im_contact', 'af_index_user_phones', 'af_create_user_phones', 'af_show_user_phone', 'af_update_user_phone', 'af_destroy_user_phone', 'af_index_user_social_media_profiles', 'af_create_user_social_media_profiles', 'af_show_user_social_media_profile', 'af_update_user_social_media_profile', 'af_destroy_user_social_media_profile')
+Completed 200 OK in 106ms (Views: 92.8ms | ActiveRecord: 5.4ms)
+
+
+Started GET "/latest/powers.json" for 127.0.0.1 at 2014-01-30 21:57:15 +0100
+Processing by A::V20140101::PowersController#index as JSON
+  [1m[36mPower Load (0.8ms)[0m  [1mSELECT "powers".* FROM "powers"[0m
+Completed 200 OK in 15ms (Views: 12.4ms | ActiveRecord: 0.8ms)
+
+
+Started OPTIONS "/latest/roles.json" for 127.0.0.1 at 2014-01-30 21:57:28 +0100
+Processing by PagesController#options as JSON
+  Parameters: {"path"=>"latest/roles"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started POST "/latest/roles.json" for 127.0.0.1 at 2014-01-30 21:57:28 +0100
+Processing by A::V20140101::RolesController#create as JSON
+  Parameters: {"name"=>"master", "power_ids"=>["af_index_roles"], "role"=>{"name"=>"master", "power_ids"=>["af_index_roles"]}}
+  [1m[35mSession Load (0.5ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.5ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+Unpermitted parameters: format, role
+  [1m[36mPower Load (0.4ms)[0m  [1mSELECT  "powers".* FROM "powers"  WHERE "powers"."id" = $1 LIMIT 1[0m  [["id", "af_index_roles"]]
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mPower Exists (1.2ms)[0m  [1mSELECT  1 AS one FROM "powers"  WHERE ("powers"."action" = 'index' AND "powers"."id" != 'af_index_roles' AND "powers"."module" = 'af' AND "powers"."resource" = 'roles') LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mRole Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "roles"  WHERE ("roles"."name" = 'master' AND "roles"."affiliation_id" = 'mpx') LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "roles" ("affiliation_id", "created_at", "name", "type", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["affiliation_id", "mpx"], ["created_at", "2014-01-30 20:57:28.545678"], ["name", "master"], ["type", "Mpx::Role"], ["updated_at", "2014-01-30 20:57:28.545678"]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "powers_roles" ("power_id", "role_id") VALUES ($1, $2)[0m  [["power_id", "af_index_roles"], ["role_id", 12]]
+  [1m[35m (0.5ms)[0m  COMMIT
+Completed 201 Created in 35ms (Views: 1.8ms | ActiveRecord: 5.9ms)
+
+
+Started GET "/latest/roles.json?order=asc&page=1&per=25&sort=id" for 127.0.0.1 at 2014-01-30 21:57:28 +0100
+Processing by A::V20140101::RolesController#index as JSON
+  Parameters: {"order"=>"asc", "page"=>"1", "per"=>"25", "sort"=>"id"}
+  [1m[36mSession Load (0.6ms)[0m  [1mSELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1[0m
+  [1m[35mUser Load (0.9ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1  [["id", 7211]]
+  [1m[36mAffiliation Load (0.6ms)[0m  [1mSELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1[0m  [["id", "mpx"]]
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx'
+  [1m[36mMpx::Role Load (0.7ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' LIMIT 25 OFFSET 0[0m
+  [1m[35mHABTM_Powers Load (1.2ms)[0m  SELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (4, 12)
+  [1m[36mPower Load (1.9ms)[0m  [1mSELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_groups', 'af_create_groups', 'af_show_group', 'af_update_group', 'af_destroy_group', 'af_restore_group', 'af_index_group_users', 'af_add_group_users', 'af_remove_group_users', 'af_add_group_user', 'af_remove_group_user', 'af_index_organizations', 'af_create_organizations', 'af_show_organization', 'af_update_organization', 'af_destroy_organization', 'af_restore_organization', 'af_index_organization_addresses', 'af_create_organization_addresses', 'af_show_organization_address', 'af_update_organization_address', 'af_destroy_organization_address', 'af_index_organization_aliases', 'af_create_organization_aliases', 'af_show_organization_alias', 'af_update_organization_alias', 'af_destroy_organization_alias', 'af_index_organization_bank_accounts', 'af_create_organization_bank_accounts', 'af_show_organization_bank_account', 'af_update_organization_bank_account', 'af_destroy_organization_bank_account', 'af_index_organization_courier_services', 'af_create_organization_courier_services', 'af_show_organization_courier_service', 'af_update_organization_courier_service', 'af_destroy_organization_courier_service', 'af_index_organization_im_contacts', 'af_create_organization_im_contacts', 'af_show_organization_im_contact', 'af_update_organization_im_contact', 'af_destroy_organization_im_contact', 'af_index_organization_key_persons', 'af_create_organization_key_persons', 'af_show_organization_key_person', 'af_update_organization_key_person', 'af_destroy_organization_key_person', 'af_index_organization_phones', 'af_create_organization_phones', 'af_show_organization_phone', 'af_update_organization_phone', 'af_destroy_organization_phone', 'af_index_organization_social_media_profiles', 'af_create_organization_social_media_profiles', 'af_show_organization_social_media_profile', 'af_update_organization_social_media_profile', 'af_destroy_organization_social_media_profile', 'af_index_organization_users', 'af_create_organization_users', 'af_show_organization_user', 'af_update_organization_user', 'af_destroy_organization_user', 'af_restore_organization_user', 'af_block_organization_user', 'af_unblock_organization_user', 'af_index_organization_website_urls', 'af_create_organization_website_urls', 'af_show_organization_website_url', 'af_update_organization_website_url', 'af_destroy_organization_website_url', 'af_index_roles', 'af_create_roles', 'af_show_roles', 'af_update_role', 'af_destroy_role', 'af_index_role_powers', 'af_add_role_powers', 'af_remove_role_powers', 'af_update_role_powers', 'af_add_role_power', 'af_remove_role_power', 'af_index_role_users', 'af_add_role_users', 'af_add_role_user', 'af_index_users', 'af_create_users', 'af_show_user', 'af_update_user', 'af_destroy_user', 'af_block_user', 'af_unblock_user', 'af_restore_user', 'af_index_user_addresses', 'af_create_user_addresses', 'af_show_user_address', 'af_update_user_address', 'af_destroy_user_address', 'af_index_user_im_contacts', 'af_create_user_im_contacts', 'af_show_user_im_contact', 'af_update_user_im_contact', 'af_destroy_user_im_contact', 'af_index_user_phones', 'af_create_user_phones', 'af_show_user_phone', 'af_update_user_phone', 'af_destroy_user_phone', 'af_index_user_social_media_profiles', 'af_create_user_social_media_profiles', 'af_show_user_social_media_profile', 'af_update_user_social_media_profile', 'af_destroy_user_social_media_profile')[0m
+Completed 200 OK in 117ms (Views: 100.5ms | ActiveRecord: 6.3ms)
+
+
+Started OPTIONS "/latest/roles/12.json" for 127.0.0.1 at 2014-01-30 21:57:34 +0100
+Processing by PagesController#options as JSON
+  Parameters: {"path"=>"latest/roles/12"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started DELETE "/latest/roles/12.json" for 127.0.0.1 at 2014-01-30 21:57:34 +0100
+Processing by A::V20140101::RolesController#destroy as JSON
+  Parameters: {"id"=>"12"}
+  [1m[35mSession Load (0.5ms)[0m  SELECT  "sessions".* FROM "sessions"  WHERE "sessions"."invalidated_at" IS NULL AND "sessions"."id" = '4f27985c4a0bd260ef48598b4537ac647b96a1682320ce294f656f5b20094c4abfe24db2338773f39369f501775b712a03b7b9a3fdc32a8062958b0f00e2cc79' LIMIT 1
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."id" = $1  ORDER BY "users"."created_at" DESC LIMIT 1[0m  [["id", 7211]]
+  [1m[35mAffiliation Load (0.6ms)[0m  SELECT  "affiliations".* FROM "affiliations"  WHERE "affiliations"."id" = $1  ORDER BY "affiliations"."created_at" DESC LIMIT 1  [["id", "mpx"]]
+  [1m[36mMpx::Role Load (0.4ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."type" IN ('Mpx::Role') AND "roles"."affiliation_id" = 'mpx' AND "roles"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35mHABTM_Powers Load (0.5ms)[0m  SELECT "powers_roles".* FROM "powers_roles"  WHERE "powers_roles"."role_id" IN (12)
+  [1m[36mPower Load (0.6ms)[0m  [1mSELECT "powers".* FROM "powers"  WHERE "powers"."id" IN ('af_index_roles')[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "users"  WHERE "users"."deleted_at" IS NULL AND "users"."role_id" = $1[0m  [["role_id", 12]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Completed 500 Internal Server Error in 20ms
+
+NoMethodError (undefined method `to_sym' for nil:NilClass):
+  app/controllers/a/v20140101/roles_controller.rb:28:in `destroy'
+
+
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/bundler/gems/rails-27aedeeb0bb9/actionpack/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.7ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/bundler/gems/rails-27aedeeb0bb9/actionpack/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (11.1ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/bundler/gems/rails-27aedeeb0bb9/actionpack/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/davidhorsak/.rvm/gems/ruby-2.1.0@mpx-um-app/bundler/gems/rails-27aedeeb0bb9/actionpack/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (25.2ms)
+  [1m[36m (121.2ms)[0m  [1mDROP DATABASE IF EXISTS "um_test"[0m
+  [1m[35m (423.7ms)[0m  CREATE DATABASE "um_test" ENCODING = 'utf8'
+
+
+Remoe
+  [1m[36mActiveRecord::SchemaMigration Load (3.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (1.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"   ORDER BY version
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (2.1ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateInitialStructure (1)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (5.1ms)[0m  [1mCREATE TABLE "casserver_lt" ("id" serial primary key, "ticket" character varying(255) NOT NULL, "created_on" timestamp NOT NULL, "consumed" timestamp, "client_hostname" character varying(255) NOT NULL) [0m
+  [1m[35m (4.3ms)[0m  CREATE TABLE "casserver_st" ("id" serial primary key, "ticket" character varying(255) NOT NULL, "service" text NOT NULL, "created_on" timestamp NOT NULL, "consumed" timestamp, "client_hostname" character varying(255) NOT NULL, "username" character varying(255) NOT NULL, "type" character varying(255) NOT NULL, "granted_by_pgt_id" integer, "granted_by_tgt_id" integer) 
+  [1m[36m (4.0ms)[0m  [1mCREATE TABLE "casserver_tgt" ("id" serial primary key, "ticket" character varying(255) NOT NULL, "created_on" timestamp NOT NULL, "client_hostname" character varying(255) NOT NULL, "username" character varying(255) NOT NULL, "extra_attributes" text) [0m
+  [1m[35m (4.0ms)[0m  CREATE TABLE "casserver_pgt" ("id" serial primary key, "ticket" character varying(255) NOT NULL, "created_on" timestamp NOT NULL, "client_hostname" character varying(255) NOT NULL, "iou" character varying(255) NOT NULL, "service_ticket_id" integer NOT NULL) 
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "1"]]
+  [1m[35m (0.8ms)[0m  COMMIT
+Migrating to AddIndexesForPerformance (2)
+  [1m[36m (0.7ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.2ms)[0m  CREATE  INDEX  "index_casserver_lt_on_ticket" ON "casserver_lt"  ("ticket")
+  [1m[36m (1.0ms)[0m  [1mCREATE  INDEX  "index_casserver_st_on_ticket" ON "casserver_st"  ("ticket")[0m
+  [1m[35m (1.1ms)[0m  CREATE  INDEX  "index_casserver_tgt_on_ticket" ON "casserver_tgt"  ("ticket")
+  [1m[36m (1.3ms)[0m  [1mCREATE  INDEX  "index_casserver_pgt_on_ticket" ON "casserver_pgt"  ("ticket")[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "2"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to DeviseCreateUsers (20130905155846)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (4.8ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying(255) DEFAULT '' NOT NULL, "encrypted_password" character varying(255) DEFAULT '' NOT NULL, "salt" character varying(255) NOT NULL, "group_id" integer, "role_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.1ms)[0m  CREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")
+  [1m[36m (0.8ms)[0m  [1mCREATE  INDEX  "index_users_on_group_id" ON "users"  ("group_id")[0m
+  [1m[35m (1.0ms)[0m  CREATE  INDEX  "index_users_on_role_id" ON "users"  ("role_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130905155846"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateGroups (20130910135641)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (5.4ms)[0m  CREATE TABLE "groups" ("id" serial primary key, "name" character varying(255), "power_ids" integer[]) 
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130910135641"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to CreateRoles (20130911135110)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (4.6ms)[0m  CREATE TABLE "roles" ("id" serial primary key, "name" character varying(255), "power_ids" integer[]) 
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130911135110"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to CreatePowers (20130911135839)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.2ms)[0m  CREATE TABLE "powers" ("id" serial primary key, "name" character varying(255)) 
+  [1m[36m (1.1ms)[0m  [1mCREATE  INDEX  "index_powers_on_name" ON "powers"  ("name")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130911135839"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateAffiliations (20130917083912)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (3.0ms)[0m  [1mCREATE TABLE "countries" ("id" serial primary key, "name" character varying(255) NOT NULL, "code" character varying(5)) [0m
+  [1m[35m (2.9ms)[0m  CREATE TABLE "affiliations" ("id" serial primary key, "name" character varying(255), "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (2.9ms)[0m  [1mCREATE TABLE "companies" ("id" serial primary key, "name" character varying(255), "affiliation_id" integer, "country_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.1ms)[0m  CREATE  INDEX  "index_companies_on_affiliation_id" ON "companies"  ("affiliation_id")
+  [1m[36m (1.1ms)[0m  [1mCREATE  INDEX  "index_companies_on_country_id" ON "companies"  ("country_id")[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "users" ADD COLUMN "company_id" integer NOT NULL
+  [1m[36m (1.0ms)[0m  [1mCREATE  INDEX  "index_users_on_company_id" ON "users"  ("company_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130917083912"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to AlterAffiliationAttributes (20130920083953)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (1.6ms)[0m  [1mALTER TABLE "affiliations" ADD COLUMN "fixed_name" character varying(255)[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "affiliations" ADD COLUMN "settings" json
+  [1m[36m (1.1ms)[0m  [1mCREATE  INDEX  "index_affiliations_on_fixed_name" ON "affiliations"  ("fixed_name")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130920083953"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddAffiliationIdToUsers (20130923094611)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" ADD COLUMN "affiliation_id" integer[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130923094611"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddStateFlagsToUsersAndCompanies (20130923103015)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (6.9ms)[0m  [1mALTER TABLE "users" ADD COLUMN "approved" boolean DEFAULT 'f'[0m
+  [1m[35m (6.9ms)[0m  ALTER TABLE "users" ADD COLUMN "confirmed" boolean DEFAULT 'f'
+  [1m[36m (5.9ms)[0m  [1mALTER TABLE "users" ADD COLUMN "authenticatable" boolean DEFAULT 'f'[0m
+  [1m[35m (3.3ms)[0m  ALTER TABLE "companies" ADD COLUMN "approved" boolean DEFAULT 'f'
+  [1m[36m (3.4ms)[0m  [1mALTER TABLE "companies" ADD COLUMN "confirmed" boolean DEFAULT 'f'[0m
+  [1m[35m (3.7ms)[0m  ALTER TABLE "companies" ADD COLUMN "authenticatable" boolean DEFAULT 'f'
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130923103015"]]
+  [1m[35m (4.4ms)[0m  COMMIT
+Migrating to AllowNullOnUserPasswords (20130923122734)
+  [1m[36m (0.6ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.2ms)[0m  ALTER TABLE "users" ALTER COLUMN "encrypted_password" TYPE character varying(255)
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "users" ALTER "encrypted_password" DROP NOT NULL[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "users" ALTER COLUMN "salt" TYPE character varying(255)
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "users" ALTER "salt" DROP NOT NULL[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130923122734"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to RemoveAffiliationDenormalizationOnUsers (20130925130526)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" DROP "affiliation_id"[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130925130526"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to GroupAndUsersHabtm (20130926112229)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "groups" DROP "power_ids"[0m
+  [1m[35m (0.6ms)[0m  ALTER TABLE "users" DROP "group_id"
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "groups_users" ("group_id" integer, "user_id" integer) [0m
+  [1m[35m (1.0ms)[0m  CREATE  INDEX  "index_groups_users_on_group_id" ON "groups_users"  ("group_id")
+  [1m[36m (1.0ms)[0m  [1mCREATE  INDEX  "index_groups_users_on_user_id" ON "groups_users"  ("user_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130926112229"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to AddOwnerToGroups (20130927145459)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "groups" ADD COLUMN "owner_id" integer NOT NULL[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130927145459"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateDomains (20131104104824)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.0ms)[0m  [1mCREATE TABLE "domains" ("id" serial primary key, "affiliation_id" integer, "name" character varying(255) NOT NULL) [0m
+  [1m[35m (1.3ms)[0m  CREATE  INDEX  "index_domains_on_name" ON "domains"  ("name")
+  [1m[36m (1.0ms)[0m  [1mCREATE  INDEX  "index_domains_on_affiliation_id" ON "domains"  ("affiliation_id")[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131104104824"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddFixedAttributesToUsers (20131104140041)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" ADD COLUMN "firstname" character varying(255)[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "users" ADD COLUMN "lastname" character varying(255)
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" ADD COLUMN "country_id" integer[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131104140041"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to AddMetamodelDataToUser (20131105105142)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (6.8ms)[0m  [1mALTER TABLE "users" ADD COLUMN "metamodel_data" json DEFAULT '{}'[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131105105142"]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+Migrating to AddNestedAttributesToCountries (20131105110541)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "countries" ADD COLUMN "lft" integer[0m
+  [1m[35m (0.7ms)[0m  ALTER TABLE "countries" ADD COLUMN "rgt" integer
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "countries" ADD COLUMN "parent_id" integer[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "countries" ADD COLUMN "eu_vat_member" integer
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "countries" ADD COLUMN "visibility_level" integer[0m
+  [1m[35m (2.1ms)[0m  ALTER TABLE "countries" ADD COLUMN "source" character varying(255)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131105110541"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to AddAncestryToCountries (20131105130020)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "countries" ADD COLUMN "ancestry" character varying(255)
+  [1m[36m (1.1ms)[0m  [1mCREATE  INDEX  "index_countries_on_ancestry" ON "countries"  ("ancestry")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131105130020"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to RemoveParentIdFromCountries (20131105130302)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "countries" DROP "parent_id"[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "countries" DROP "lft"
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "countries" DROP "rgt"[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131105130302"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddHasChildrenToCountries (20131105151545)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (5.4ms)[0m  [1mALTER TABLE "countries" ADD COLUMN "has_children" boolean DEFAULT 'f'[0m
+  [1m[35m (1.2ms)[0m  CREATE  INDEX  "index_countries_on_has_children" ON "countries"  ("has_children")
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131105151545"]]
+  [1m[35m (0.9ms)[0m  COMMIT
+Migrating to AddAdditionalTimestampsToUsers (20131106082056)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "users" ADD COLUMN "approved_at" timestamp
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" ADD COLUMN "confirmed_at" timestamp[0m
+  [1m[35m (6.7ms)[0m  ALTER TABLE "users" ADD COLUMN "blocked" boolean DEFAULT 'f'
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "users" ADD COLUMN "blocked_at" timestamp[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131106082056"]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+Migrating to CreateDynamicModels (20131107152549)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (4.6ms)[0m  [1mCREATE TABLE "dynamic_metamodels" ("id" serial primary key, "entity_type" character varying(255), "entity_id" integer, "metamodel_type" character varying(255), "metamodel_data" json DEFAULT '{}') [0m
+  [1m[35m (4.9ms)[0m  CREATE TABLE "dynamic_relations" ("id" serial primary key, "first_id" integer, "first_type" character varying(255), "second_id" integer, "second_type" character varying(255), "relation_type" character varying(255)) 
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131107152549"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to DenormalizeOwners (20131118192132)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.8ms)[0m  ALTER TABLE "companies" ADD COLUMN "affiliation_fixed_name" character varying(255)
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" ADD COLUMN "affiliation_id" integer[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "users" ADD COLUMN "affiliation_fixed_name" character varying(255)
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "groups" ADD COLUMN "affiliation_id" integer[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "groups" ADD COLUMN "affiliation_fixed_name" character varying(255)
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "groups" ADD COLUMN "company_id" integer[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131118192132"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to RemoveBooleanColumnsFromUsers (20131120210953)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.6ms)[0m  [1mALTER TABLE "users" DROP "approved"[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "users" DROP "confirmed"
+  [1m[36m (0.6ms)[0m  [1mALTER TABLE "users" DROP "authenticatable"[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "users" DROP "blocked"
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131120210953"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to ChangeEncryptedPasswordOnUsers (20131120222321)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.8ms)[0m  ALTER TABLE "users" ALTER COLUMN "encrypted_password" TYPE text
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" ALTER COLUMN "encrypted_password" SET DEFAULT NULL[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131120222321"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to RemoveConfirmedAtFromUsers (20131121094409)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "users" DROP "confirmed_at"[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131121094409"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to ChangeIdFromIntegerToStringOnAffiliations (20131121102748)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (1.1ms)[0m  [1mALTER TABLE "affiliations" DROP "id"[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "affiliations" RENAME COLUMN "fixed_name" TO "id"
+  [1m[36m (0.3ms)[0m  [1mALTER INDEX "index_affiliations_on_fixed_name" RENAME TO "index_affiliations_on_id"[0m
+  [1m[35m (1.4ms)[0m  ALTER TABLE affiliations ADD PRIMARY KEY(id);
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131121102748"]]
+  [1m[35m (0.7ms)[0m  COMMIT
+Migrating to RemoveAffiliationFixedNameColumns (20131121112113)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "users" DROP "affiliation_fixed_name"
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "companies" DROP "affiliation_fixed_name"[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "groups" DROP "affiliation_fixed_name"
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131121112113"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to RemoveBooleanFlagsFromCompanies (20131121124935)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "companies" DROP "approved"
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "companies" DROP "confirmed"[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "companies" DROP "authenticatable"
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131121124935"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to ChangeColumnTypesForAffiliationids (20131121135634)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (6.9ms)[0m  ALTER TABLE "users" ALTER COLUMN "affiliation_id" TYPE character varying(255)
+  [1m[36m (6.4ms)[0m  [1mALTER TABLE "companies" ALTER COLUMN "affiliation_id" TYPE character varying(255)[0m
+  [1m[35m (8.2ms)[0m  ALTER TABLE "domains" ALTER COLUMN "affiliation_id" TYPE character varying(255)
+  [1m[36m (4.3ms)[0m  [1mALTER TABLE "groups" ALTER COLUMN "affiliation_id" TYPE character varying(255)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131121135634"]]
+  [1m[36m (2.6ms)[0m  [1mCOMMIT[0m
+Migrating to RenameCompaniesToOrganizations (20131127100644)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "companies" RENAME TO "organizations"[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "companies_id_seq" RENAME TO "organizations_id_seq"
+  [1m[36m (0.2ms)[0m  [1mALTER INDEX "index_companies_on_affiliation_id" RENAME TO "index_organizations_on_affiliation_id"[0m
+  [1m[35m (0.2ms)[0m  ALTER INDEX "index_companies_on_country_id" RENAME TO "index_organizations_on_country_id"
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131127100644"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to RenameCompanyIdToOrganizationIdInAllAffectedTables (20131127101725)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.6ms)[0m  ALTER TABLE "groups" RENAME COLUMN "company_id" TO "organization_id"
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "users" RENAME COLUMN "company_id" TO "organization_id"[0m
+  [1m[35m (0.3ms)[0m  ALTER INDEX "index_users_on_company_id" RENAME TO "index_users_on_organization_id"
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131127101725"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to AddTimestampsToRoles (20131127110045)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "roles" ADD COLUMN "created_at" timestamp
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "roles" ADD COLUMN "updated_at" timestamp[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131127110045"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddAffiliationIdToRoles (20131127122103)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "roles" ADD COLUMN "affiliation_id" character varying(255)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131127122103"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to AddTimestampsToGroups (20131128134012)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "groups" ADD COLUMN "created_at" timestamp[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "groups" ADD COLUMN "updated_at" timestamp
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131128134012"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Migrating to RenameCountriesToGeographies (20131203144225)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "countries" RENAME TO "geographies"
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "countries_id_seq" RENAME TO "geographies_id_seq"[0m
+  [1m[35m (0.2ms)[0m  ALTER INDEX "index_countries_on_ancestry" RENAME TO "index_geographies_on_ancestry"
+  [1m[36m (0.2ms)[0m  [1mALTER INDEX "index_countries_on_has_children" RENAME TO "index_geographies_on_has_children"[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "organizations" RENAME COLUMN "country_id" TO "geography_id"
+  [1m[36m (0.2ms)[0m  [1mALTER INDEX "index_organizations_on_country_id" RENAME TO "index_organizations_on_geography_id"[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "users" RENAME COLUMN "country_id" TO "geography_id"
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "geographies" ADD COLUMN "affiliation_id" character varying(255) NOT NULL[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131203144225"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to RolesAndPowersHabtm (20131204133254)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "roles" DROP "power_ids"[0m
+  [1m[35m (1.1ms)[0m  CREATE TABLE "powers_roles" ("power_id" integer, "role_id" integer) 
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131204133254"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to ChangeLimitAtCodeOnGeographies (20131206110215)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "geographies" ALTER COLUMN "code" TYPE character varying(30)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131206110215"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to RenameCodeToIso3166OnGeographies (20131209140852)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "geographies" RENAME COLUMN "code" TO "iso_3166"
+  [1m[36m (5.0ms)[0m  [1mALTER TABLE "geographies" ALTER COLUMN "iso_3166" TYPE character varying(4)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131209140852"]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+Migrating to RemoveVisilityLevelFromGeographies (20131209141858)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "geographies" DROP "visibility_level"[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131209141858"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddIdentificationAttributesToGeographies (20131209142035)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "geographies" ADD COLUMN "number" integer[0m
+  [1m[35m (6.0ms)[0m  ALTER TABLE "geographies" ADD COLUMN "country" boolean DEFAULT 'f' NOT NULL
+  [1m[36m (6.1ms)[0m  [1mALTER TABLE "geographies" ADD COLUMN "former" boolean DEFAULT 'f' NOT NULL[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131209142035"]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+Migrating to AddCodeToGeographies (20131209143337)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "geographies" ADD COLUMN "code" character varying(3) NOT NULL[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131209143337"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to AddTypeToGeographies (20131209164714)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "geographies" ADD COLUMN "type" character varying(255)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131209164714"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to AllowNullInAffiliationIdOnGeographies (20131209165249)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "geographies" ALTER COLUMN "affiliation_id" TYPE character varying(255)[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "geographies" ALTER "affiliation_id" DROP NOT NULL
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131209165249"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Migrating to RenameGeographyIdToGeoScopeIdOnUsers (20131209171435)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "users" RENAME COLUMN "geography_id" TO "geo_scope_id"
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131209171435"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to RenameGeographyIdToGeoScopeIdOnOrganizations (20131209171604)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "organizations" RENAME COLUMN "geography_id" TO "geo_scope_id"
+  [1m[36m (0.2ms)[0m  [1mALTER INDEX "index_organizations_on_geography_id" RENAME TO "index_organizations_on_geo_scope_id"[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131209171604"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to RemoveExtraColumnsFromGeographies (20131210140721)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mALTER TABLE "geographies" DROP "country"[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "geographies" DROP "source"
+  [1m[36m (0.9ms)[0m  [1mALTER TABLE "geographies" DROP "has_children"[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131210140721"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to ChangeEuVatMemberColumnOnGeographies (20131210141910)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.6ms)[0m  [1mALTER TABLE "geographies" DROP "eu_vat_member"[0m
+  [1m[35m (5.2ms)[0m  ALTER TABLE "geographies" ADD COLUMN "eu_vat_member" boolean DEFAULT 'f' NOT NULL
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131210141910"]]
+  [1m[35m (0.9ms)[0m  COMMIT
+Migrating to RenameFirstNameAndLastNameOnUsers (20131213102700)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "users" RENAME COLUMN "firstname" TO "first_name"
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "users" RENAME COLUMN "lastname" TO "last_name"[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131213102700"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddResponsibleUserIdToUsers (20131216160816)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" ADD COLUMN "responsible_user_id" integer[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131216160816"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to AddResponsibleUserIdToOrganizations (20131216163447)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "organizations" ADD COLUMN "responsible_user_id" integer[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131216163447"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateSessions (20131218152223)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (2.3ms)[0m  [1mCREATE TABLE "sessions" ("id" character varying(255) NOT NULL, "user_id" integer, "affiliation_id" character varying(255), "created_at" timestamp) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131218152223"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to AddInvalidatedAtToSessions (20131218163435)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "sessions" ADD COLUMN "invalidated_at" timestamp[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131218163435"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to RenameMetamodelDataToMetadataOnUsers (20140108163832)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (36.9ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS hstore[0m
+  [1m[35m (1.3ms)[0m  ALTER TABLE "users" DROP "metamodel_data"
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" ADD COLUMN "metadata" hstore[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140108163832"]]
+  [1m[36m (1.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddTypeToUsers (20140109130336)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "users" ADD COLUMN "type" character varying(255) NOT NULL[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140109130336"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to RenameMetadataToMetaDataOnUsers (20140109200827)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" RENAME COLUMN "metadata" TO "meta_data"[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140109200827"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to RemoveCasTables (20140113150825)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.5ms)[0m  [1mDROP TABLE "casserver_lt"[0m
+  [1m[35m (2.3ms)[0m  DROP TABLE "casserver_pgt"
+  [1m[36m (2.3ms)[0m  [1mDROP TABLE "casserver_st"[0m
+  [1m[35m (1.5ms)[0m  DROP TABLE "casserver_tgt"
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140113150825"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+Migrating to RemoveFirstNameAndLastNameFromUsers (20140113154044)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "users" DROP "first_name"
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" DROP "last_name"[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140113154044"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to RemoveNameFromOrganizations (20140113160301)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "organizations" DROP "name"[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140113160301"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+Migrating to AddMetaDataToOrganizations (20140113160347)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "organizations" ADD COLUMN "meta_data" hstore[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140113160347"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to AddNameToOrganizations (20140113161414)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "organizations" ADD COLUMN "name" character varying(255) NOT NULL[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140113161414"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to AddEmailToOrganizations (20140113173117)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "organizations" ADD COLUMN "email" character varying(255) NOT NULL[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140113173117"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateGeographiesOrganizationsJoinTable (20140114091656)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.6ms)[0m  [1mALTER TABLE "organizations" DROP "geo_scope_id"[0m
+  [1m[35m (1.1ms)[0m  CREATE TABLE "geographies_organizations" ("geography_id" integer, "organization_id" integer) 
+  [1m[36m (1.2ms)[0m  [1mCREATE UNIQUE INDEX  "index_geographies_organizations_on_organization_id_and_geo" ON "geographies_organizations"  ("organization_id", "geography_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140114091656"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to CreateGeographiesUsersJoinTable (20140114104824)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.6ms)[0m  [1mALTER TABLE "users" DROP "geo_scope_id"[0m
+  [1m[35m (0.9ms)[0m  CREATE TABLE "geographies_users" ("geography_id" integer, "user_id" integer) 
+  [1m[36m (1.3ms)[0m  [1mCREATE UNIQUE INDEX  "index_geographies_users_on_user_id_and_geography_id" ON "geographies_users"  ("user_id", "geography_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140114104824"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to ChangeIdColumnTypeOnOrganizations (20140114130606)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "organizations" ADD COLUMN "identifier" character varying(255) NOT NULL[0m
+  [1m[35m (0.9ms)[0m  ALTER TABLE "organizations" DROP "id"
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "organizations" RENAME COLUMN "identifier" TO "id"[0m
+  [1m[35m (1.2ms)[0m  ALTER TABLE organizations ADD PRIMARY KEY(id);
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140114130606"]]
+  [1m[35m (0.7ms)[0m  COMMIT
+Migrating to ChangeColumnTypesForOrganizationIds (20140114144203)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.6ms)[0m  ALTER TABLE "geographies_organizations" ALTER COLUMN "organization_id" TYPE character varying(255)
+  [1m[36m (4.1ms)[0m  [1mALTER TABLE "groups" ALTER COLUMN "organization_id" TYPE character varying(255)[0m
+  [1m[35m (7.3ms)[0m  ALTER TABLE "users" ALTER COLUMN "organization_id" TYPE character varying(255)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140114144203"]]
+  [1m[35m (2.0ms)[0m  COMMIT
+Migrating to AddTypeToOrganizations (20140115112339)
+  [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.6ms)[0m  ALTER TABLE "organizations" ADD COLUMN "type" character varying(255) NOT NULL
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140115112339"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to AddTypeAndMetadataToGroups (20140115122305)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "groups" ADD COLUMN "type" character varying(255)
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "groups" ADD COLUMN "meta_data" hstore[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140115122305"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to AddTypeAndMetadataToRoles (20140115131420)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "roles" ADD COLUMN "type" character varying(255)[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "roles" ADD COLUMN "meta_data" hstore
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140115131420"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Migrating to AddTypeAndMetadataToPowers (20140115132202)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.1ms)[0m  ALTER TABLE "powers" ADD COLUMN "type" character varying(255)
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "powers" ADD COLUMN "meta_data" hstore[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140115132202"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to RemoveTypeFromPowers (20140115133114)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "powers" DROP "type"[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140115133114"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to UpdateDynamicMetamodels (20140115143554)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.9ms)[0m  [1mALTER TABLE "dynamic_metamodels" DROP "metamodel_type"[0m
+  [1m[35m (0.8ms)[0m  ALTER TABLE "dynamic_metamodels" DROP "metamodel_data"
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "dynamic_metamodels" ADD COLUMN "meta_data" hstore[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "dynamic_metamodels" ADD COLUMN "created_at" timestamp
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "dynamic_metamodels" ADD COLUMN "updated_at" timestamp[0m
+  [1m[35m (0.6ms)[0m  ALTER TABLE "dynamic_metamodels" ADD COLUMN "type" character varying(255)
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140115143554"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to DropDynamicRelations (20140115144123)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.7ms)[0m  DROP TABLE "dynamic_relations"
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140115144123"]]
+  [1m[35m (0.9ms)[0m  COMMIT
+Migrating to AddDeletedAtToUsers (20140116134415)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "users" ADD COLUMN "deleted_at" timestamp
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140116134415"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Migrating to AddDeletedAtToOrganizations (20140116164148)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "organizations" ADD COLUMN "deleted_at" timestamp
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140116164148"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Migrating to AddDeletedAtToRoles (20140117110110)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "roles" ADD COLUMN "deleted_at" timestamp
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140117110110"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Migrating to AddDeletedAtToGroups (20140117111355)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "groups" ADD COLUMN "deleted_at" timestamp
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140117111355"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Migrating to RemoveDeletedAtFromRoles (20140121150629)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "roles" DROP "deleted_at"
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140121150629"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to AddAffiliationIdToDynamicMetamodels (20140122101050)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "dynamic_metamodels" ADD COLUMN "affiliation_id" character varying(255) NOT NULL
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140122101050"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Migrating to ChangeEntityIdColumnTypeToStringOnDynamicMetamodels (20140123140327)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (4.9ms)[0m  ALTER TABLE "dynamic_metamodels" ALTER COLUMN "entity_id" TYPE character varying(255)
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140123140327"]]
+  [1m[35m (1.0ms)[0m  COMMIT
+Migrating to ChangeIdFromIntegerToStringOnPowers (20140129102201)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.0ms)[0m  ALTER TABLE "powers" DROP "id"
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "powers" RENAME COLUMN "name" TO "id"[0m
+  [1m[35m (0.2ms)[0m  ALTER INDEX "index_powers_on_name" RENAME TO "index_powers_on_id"
+  [1m[36m (1.4ms)[0m  [1mALTER TABLE powers ADD PRIMARY KEY(id);[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140129102201"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to ChangeRoleIdFromIntegerToStringOnPowersRoles (20140129103444)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (1.8ms)[0m  [1mALTER TABLE "powers_roles" ALTER COLUMN "power_id" TYPE character varying(255)[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140129103444"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to AddColumnsToPowers (20140129104923)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "powers" ADD COLUMN "module" character varying(255)[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "powers" ADD COLUMN "resource" character varying(255)
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "powers" ADD COLUMN "action" character varying(255)[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "powers" ADD COLUMN "comment" text
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140129104923"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"   ORDER BY version[0m
+  [1m[36m (124.7ms)[0m  [1mDROP DATABASE IF EXISTS "um_test"[0m
+  [1m[35m (246.7ms)[0m  CREATE DATABASE "um_test" ENCODING = 'utf8'
+  [1m[36m (125.7ms)[0m  [1mDROP DATABASE IF EXISTS "um_test"[0m
+  [1m[35m (250.2ms)[0m  CREATE DATABASE "um_test" ENCODING = 'utf8'
+  [1m[36m (120.7ms)[0m  [1mDROP DATABASE IF EXISTS "um_tst"[0m
+  [1m[35m (243.7ms)[0m  CREATE DATABASE "um_tst" ENCODING = 'utf8'
