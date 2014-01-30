@@ -10,7 +10,7 @@ describe Role do
 
       expect {
         role = Role.includes(:powers).where(affiliation_id: affiliation.id).find(role.id).destroy
-      }.to raise_error
+      }.not_to raise_error
     end
   end
 
